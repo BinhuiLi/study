@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ch">
+  <head>
+    <meta charset="UTF-8" />
+    <title>vue模板语法</title>
+    <!--引入Vue-->
+    <script type="text/javascript" src="../jsdir/vue.js"></script>
+  </head>
+
+  <!-- 准备好一个容器 -->
+  <div id="root">
+    <h1>插值语法</h1>
+    <h3>hello {{name}}</h3>
+    <hr/>
+    <h1>指令语法</h1>
+    <a :href="school.url" x="hello">点我去{{school.name}}学习1</a>
+    <a :href="school.url" x="hello">点我去{{school.name}}学习2</a>
+  </div>
+
+  <body>
+
+    <script type="text/javascript">
+      Vue.config.productionTip = false
+      new Vue({
+        el:'#root',  
+        data:{  
+          name:'jack',
+          school:{
+              url:'http://www.atguigu.com',
+              name:'尚硅谷'
+          }
+        }
+      })
+    </script>
+
+  </body>
+</html>
+<!--
+    vue模板语法
+
+    1、插值语法：
+
+    功能：用于解析标签体内容
+
+    写法：{{xxx}} xx是js表达式，且可以直接读取到data中的所有属性
+
+    2、指令语法：
+
+    功能：用于解析标签{包括标签属性、标签内容、绑定事件....}
+
+    举例：v-bind:href=''xxx''或简写为 :href="xxx",xxx同样为js表达式，且可以直接读取到data中的所有属性
+
+    备注：vue中有很多的指令，且格式都为：v-???
+-->
