@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ch">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script type="text/javascript" src="../jsdir/vue.js"></script>
+</head>
+
+<body>
+    <div id="root">
+        <h1>你好 {{name}}</h1> 
+        <button v-on:click = "showinfo1">点我提示信息（不传递参数）</button>
+        <!-- <button  v-on:click = "showinfo2($event,18)">点我提示信息（传递参数）</button> -->
+        <button  @click = "showinfo2($event,18)">点我提示信息（传递参数）</button>
+    </div>
+    <script>
+        Vue.config.productionTip = false
+        new Vue({
+            el: '#root',
+            data: {
+               name:'尚硅谷'
+            },
+            methods: {
+                showinfo1(event){
+                    console.log(event.target.innerText)
+                    alert("同学你好！！")
+                },
+                showinfo2(event,number){
+                    console.log(event.target.innerText)
+                    alert("老师你好！！"+"："+number)
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>
+<!-- 事件的基本使用
+    1、使用v-on:xxx 或 @xxx 绑定事件，其中xxx为事件名
+    2、事件的回调需要配置在methods对象当中，最终会在vm上
+    3、methods中配置的函数，不要用箭头函数！否则this将不会是vm而是window
+    4、methods中配置函数，都是vue所管理的函数，this的指向为vm或者组件实例对象
+    5、@click=“demo” 和@click=“demo($event)“效果一致，但后者可以传递别的参数 -->

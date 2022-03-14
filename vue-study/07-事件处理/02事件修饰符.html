@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ch">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script type="text/javascript" src="../jsdir/vue.js"></script>
+</head>
+<style>
+    *{
+        margin-top: 20px;
+    }
+    .box1{
+        background-color: skyblue;
+        height: 200px;
+        width: 100%;
+        padding: 5px;
+    }
+    .box2{
+        background-color: orange;
+        height: 100px;
+        width: 100%;
+    }
+</style>
+<body>
+    <div id="root">
+        <h1>你好 {{name}}</h1> 
+        <a :href="url" @click.prevent = "">点我去百度</a> <!-- prevent修饰符使得a标签的默认跳转的事件不执行 -->
+        <div class="box1" @click = "showinfo(1)"> 
+            <div class="box2" @click.stop = "showinfo(2)"></div> <!-- stop修饰符使得box2后续的事件冒泡被阻止 -->
+        </div>
+        <button @click.once = "showinfo">showinfo</button>  <!-- once修饰符使得该事件只能被触发一次 -->
+    </div>
+    <script>
+        Vue.config.productionTip = false
+        new Vue({
+            el: '#root',
+            data: {
+               name:'尚硅谷',
+               url:'http://www.baidu.com'
+            },
+            methods:{
+                showinfo(x){
+                    alert("事件被触发")
+                    console.log(x)
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>
+<!-- vue中的事件修饰符
+    1、prevent：阻止默认事件
+    2、stop：阻止事件冒泡
+    3、once：事件只被触发一次
+    4、capture：使用事件的捕获模式
+    5、self：只有event.target是当前元素时才被触发
+    6、passive：事件的默认行为立即执行，无需等待事件回调执行完毕 -->

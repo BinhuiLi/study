@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ch">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script type="text/javascript" src="../jsdir/vue.js"></script>
+</head>
+
+<body>
+    <div id="root">
+        <h2>人员列表</h2>
+        <input type="text" placeholder="请输入查询条件" v-model="keyWord"></input>
+        <ul>
+            <li v-for="p in filterPersons" :key="p.id">
+                {{p.name}}--{{p.age}}--{{p.sex}}
+            </li>
+        </ul>
+    </div>
+    <script>
+        Vue.config.productionTip = false
+        //使用监视属性
+        //#region 
+        /* const vm = new Vue({
+            el: '#root',
+            data: {
+                keyWord:'',
+                persons:[
+                    {id:'001',name:'马冬梅',age:18,sex:'女'},
+                    {id:'002',name:'周冬雨',age:19,sex:'女'},
+                    {id:'003',name:'周杰伦',age:20,sex:'男'},
+                    {id:'004',name:'温兆伦',age:21,sex:'男'}
+               ],
+               filterPersons:[]
+            },
+            watch:{
+                keyWord:{
+                    immediate:true,     //handler会在初始化时执行
+                    handler(val){
+                        this.filterPersons = this.persons.filter((p)=>{
+                            return p.name.indexOf(val) !== -1
+                        })
+                    }
+                }
+            }
+        }) */
+        //#endregion
+        const vm = new Vue({
+            el: '#root',
+            data: {
+                keyWord:'',
+                persons:[
+                    {id:'001',name:'马冬梅',age:18,sex:'女'},
+                    {id:'002',name:'周冬雨',age:19,sex:'女'},
+                    {id:'003',name:'周杰伦',age:20,sex:'男'},
+                    {id:'004',name:'温兆伦',age:21,sex:'男'}
+               ]
+            },
+            computed:{
+                filterPersons(){
+                    return this.persons.filter((p)=>{
+                        return p.name.indexOf(this.keyWord) !== -1
+                    })
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

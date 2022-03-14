@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ch">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script type="text/javascript" src="../jsdir/vue.js"></script>
+</head>
+
+<body>
+    <div id="root">
+        <h1>当前n的值为： {{n}}</h1> 
+        <!-- <div v-show="n === 0">show的Test</div> -->
+        <div v-if="n === 0">if的Test</div>
+
+        <template v-if="n === 1">
+            <div>angular</div>
+            <div>react</div>
+            <div>vue</div>
+        </template>
+    </div>
+    <script>
+        Vue.config.productionTip = false
+        const vm = new Vue({
+            el: '#root',
+            data: {
+               n:0
+            }
+        })
+    </script>
+</body>
+
+</html>
+<!-- 条件渲染
+    1、v-if
+        写法：
+            （1）v-if="表达式"
+            （2）v-else-if="表达式"
+            （3）v-else="表达式"
+        适用于：切换频率较低的场景
+        特点：不展示的DOM元素直接移除
+        注意：v-if可以和v-else-if、v-else一起使用，但要求结构不能被“打断”
+    2、v-show 
+        写法：v-show="表达式"
+        适用于：切换频率较高的场景
+        特点：不展示的DOM未被移除，仅仅是通过display:none去将其隐藏
+    3、备注：使用v-id的时候，元素可能无法获取到，而使用v-show一定可以获取到 -->

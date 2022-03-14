@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ch">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script type="text/javascript" src="../jsdir/vue.js"></script>
+</head>
+
+<body>
+    <div id="root">
+        姓：<input type="text" v-model="firstName" placeholder="请输入你的姓"></input><br/>
+        名：<input type="text" v-model="lastName" placeholder="请输入你的名"></input><br/>
+        全名：<span>{{fullName()}}</span>
+    </div>
+    <script>
+        Vue.config.productionTip = false
+        new Vue({
+            el: '#root',
+            data: {
+                firstName:'张',
+                lastName:'三'
+            },
+            methods:{
+                fullName(){
+                    return this.firstName+'-'+this.lastName
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>
