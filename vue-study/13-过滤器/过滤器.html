@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ch">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script type="text/javascript" src="../jsdir/vue.js"></script>
+    <script type="text/javascript" src="../jsdir/dayjs.min.js"></script>
+</head>
+
+<body>
+    <div id="root">
+        <h2>显示格式化后的时间</h2> 
+       <!--  计算属性实现 -->
+        <h3>现在是：{{fmtTime}}</h3>
+        <!-- methods实现 -->
+        <h3>现在是：{{getFmtTime()}}</h3>
+        <!-- 过滤器实现 -->
+        <h3>现在是：{{time | timeFormater}}</h3>
+        <!-- 过滤器实现(传参) -->
+        <h3>现在是：{{time | timeFormater('YYYY-MM-DD')}}</h3>
+        <!-- 过滤器串联实现 -->
+        <h3>现在是：{{time | timeFormater | mySlice}}</h3>
+    </div>
+    <div id="root2">
+        你好：{{msg | mySlice}}
+    </div>
+    <script>
+        Vue.config.productionTip = false
+        Vue.filter('mySlice',function(val){
+            return val.slice(0,4)
+        })
+        new Vue({
+            el: '#root',
+            data: {
+               time:1647364202680
+            },
+            computed:{
+                fmtTime(){
+                    return dayjs(this.time).format('YYYY-MM-DD HH:mm:ss')
+                }
+            },
+            methods:{
+                getFmtTime(){
+                    return dayjs(this.time).format('YYYY-MM-DD HH:mm:ss')
+                }
+            },
+            //局部过滤器
+            filters:{
+                timeFormater(val,str='YYYY-MM-DD HH:mm:ss'){
+                    return dayjs(val).format(str)
+                }
+               /*  mySlice(val){
+                    return val.slice(0,4)
+                } */
+            }
+        })
+        new Vue({
+            el:'#root2',
+            data:{
+                msg:'hello world'
+            }
+        })
+    </script>
+</body>
+
+</html>
+过滤器
+    定义：对要显示的数据进行特定格式化后再显示（适用于一些简单逻辑的处理）
+    语法：
+        1、注册过滤器：Vue.filter(name,cllback(val){}) 或 new Vue({filters:{callback(val){}}})
+        2、使用过滤器：{{xxx | 过滤器名称}} 或v-bind:属性="xxx | 过滤器名称"
+    备注：
+        1、过滤器也可以接受额外参数，多个过滤器可以串联使用
+        2、并没有改变原来的数据，是产生新的响应数据

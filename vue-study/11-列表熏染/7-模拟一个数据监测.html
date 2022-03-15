@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ch">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <script type="text/javascript">
+        let data = {
+            name:'尚硅谷',
+            address:'北京'
+        }
+
+        /* Object.defineProperty(data,'name',{
+            get(){
+                return data.name
+            },
+            set(val){
+                data.name = val
+            }
+        })
+        */
+
+        const obs = new Observer(data)
+        console.log(obs)
+
+        function Observer(obj){
+            const keys = Object.keys(obj)
+            keys.forEach((key)=>{
+                Object.defineProperty(this,key,{
+                    get(){
+                        return obj[key]
+                    },
+                    set(val){
+                        obj[key] = val
+                    }
+                })
+            })
+        }
+
+    </script>
+</body>
+
+</html>

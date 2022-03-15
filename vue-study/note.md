@@ -299,3 +299,59 @@
     1、最好是使用每条数据的唯一标识为key，比如id、手机号、身份证号、学号等唯一值
 
     2、如果不存在对数据的逆序操作，仅用于渲染列表用于展示使用index或者唯一标识作为key的值都是没有问题的
+
+18、Vue监视数据的原理
+
+    1、vue会监视data中所有层次的数据
+
+    2、如何监测对象中的数据？
+
+    通过setter实现监视，且要new Vue时就传入要监视的数据
+
+    （1）对象中后加的属性，Vue默认不做响应式处理
+
+    （2）如需给后加的属性做响应式，请使用如下API：
+
+    Vue.set(target,propertyName/index,value)或
+
+    vm.$set(target,propertyName/index,value)
+
+    3、如何监视数组中的数据？
+
+    通过包装数组更新元素的方法实现，本质就是做了两件事
+
+    （1）调用原生对应的方法对数组进行更新
+
+    （2）重新解析模板，进行更新页面
+
+    4、在Vue修改数组中的某个元素一定要使用如下方法
+
+    1、使用这些API：push()、pop()、unshift()、shift()、splice()、sort()、reverse()
+
+    2、Vue.set()或vm.$set()
+
+    特别注意：Vue.set()和vm.$set()不能给vm或vm的根数据对象添加属性！！！！
+
+19、收集表单数据：
+
+    若：<inputtype="text"/>，则v-model收集的是value的值，用户输入的就是value的值
+
+    若：<inputtype="radio"/>，则v-model收集的是value的值，且要给标签配置value的值
+
+    若：<inputtype="radio"/>
+
+    1、没有配置input的value的属性，那么收集的就是checked（勾选 or 未勾选，是布尔值）
+
+    2、配置input的value属性：
+
+    （1）v-model的初始值是非数组，那么收集的就是checked（勾选 or 未勾选，是布尔值）
+
+    （2）v-model的初始值是数组，那么收集的就是value组成的数组
+
+    备注：v-model的三个修饰符
+
+    lazy：失去焦点再收集数据
+
+    number：只取开头为数字的部分
+
+    trim：输入的数据去除首尾的空格
