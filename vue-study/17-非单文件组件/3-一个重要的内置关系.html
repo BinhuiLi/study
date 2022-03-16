@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ch">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script type="text/javascript" src="../jsdir/vue.js"></script>
+</head>
+
+<body>
+    <div id="root">
+        <!--  第三步 组件的使用 -->
+        <school></school>
+    </div>
+    <script>
+        Vue.config.productionTip = false
+        //第一步：创建组件
+        const school = Vue.extend({
+            template:`
+                <div>
+                    <h2>学校名称：{{name}}</h2>
+                    <h2>学校地址：{{address}}</h2>
+                    <Button @click="report">点我提示学校名称</Button>
+                </div>
+            `,
+            data(){
+                return {
+                    name:'尚硅谷',
+                    address:'北京昌平'
+                }
+            },
+            methods: {
+                report(){
+                    alert(this.name)
+                }
+            },
+        })
+       
+        const vm = new Vue({
+            el: '#root',
+            data: {
+               msg:'基本信息'
+            },
+            //第二步 注册组件
+            components:{
+                school
+            }
+        })
+        
+        console.log(school.prototype)
+ /*     console.log(vm.__proto__ === Vue.prototype)  //实例对象通过隐式原型属性获取的原型对象和其缔造者通过显式原型属性获取的原型对象为同一个 */
+        
+/*         //通过vm的隐式原型属性操作原型对象    追加一个值为99的x属性
+        vm.__proto__.x = 99     
+        //通过vc获取x的值      返回结果为99
+        console.log(school.prototype.x)
+        //school（一个创建好的组件的名字）代表着Vuecomponent这个构造函数（当<school></school>标签被解析时才会创造出VueComponent的实例对象）
+        //Vue就是创建Vue实例对象的构造函数
+        //返回结果为true   代表着VueComponent构造方法的原型对象的原型对象指向着Vue构造方法的原型对象 这也就意味着vc可以拿到vm原型对象上的所有属性 也可以使用vc操作vm的原型对象
+        console.log(school.prototype.__proto__ === Vue.prototype)   */
+    </script> 
+</body>
+
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ch">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script type="text/javascript" src="../jsdir/vue.js"></script>
+</head>
+
+<body>
+    <div id="root">
+        <h2 :style="{opacity}">欢迎学习VUE</h2>
+        <button @click="stop">点我stop</button>
+        <button @click="opacity = 1">点我设置透明度为1</button>
+    </div>
+    <script>
+        Vue.config.productionTip = false
+
+        const vm = new Vue({
+            el: '#root',
+            data: {
+               opacity: 1
+            },
+            methods: {
+                stop(){
+                    this.$destroy()
+                }
+            },
+            mounted(){
+                this.timer = setInterval(()=>{
+                    this.opacity -= 0.01
+                    if(this.opacity <= 0) this.opacity = 1
+                },16)
+            },
+            beforeDestroy() {
+                clearInterval(this.timer)
+            },
+        })
+    </script>
+</body>
+
+</html>
+<!-- 常用的生命周期的钩子
+    1、mounted：发送ajax请求、启动定时器、绑定自定义事件、订阅消息等【初始化操作】
+    2、beforedestory：清除定时器、解绑自定义事件、取消订阅消息等【收尾工作】
+关于销毁Vue实例
+    1、销毁后借助Vue开发工具看不到任何信息
+    2、销毁后自定义事件失效，但原生DOM事件依然有效
+    3、一般不会在beforedestory操作数据，因为即便操作数据，也不会再触发更新流程 -->

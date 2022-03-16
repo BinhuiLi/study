@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ch">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script type="text/javascript" src="../jsdir/vue.js"></script>
+</head>
+
+<body>
+    <div id="root">
+        <h2>你好 {{name}}</h2> 
+        <h2>当前n的值为：{{n}}</h2>
+        <h2>n使用big指令放大后的值为：<span v-big="n"></span></h2>
+        <button @click="n++">点我n++</button>
+        <input type="text" v-fbind:value="n"/>
+        <br/>
+    </div>
+    <script>
+        Vue.config.productionTip = false
+        new Vue({
+            el: '#root',
+            data: {
+               name:'尚硅谷',
+               n:1
+            },
+            directives:{
+                //big函数何时会被调用？1、当指令与元素成功绑定时2、当指令所在的模板被重新解析时
+                big(element,binding){
+                    element.innerText = binding.value * 10
+                },
+                fbind:{
+                    //当指令与元素成功绑定时
+                    bind(element,binding){
+                        element.value = binding.value
+                    },
+                    //指令所在元素被插入页面时
+                    inserted(element,binding){
+                        element.focus()
+                    },
+                    //当指令所在的模板被重新解析时
+                    update(element,binding){
+                        element.value = binding.value
+                        element.focus()
+                    }
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>
+<!-- 自定义指令：
+    1、定义语法：
+        （1）局部指令：
+            new Vue({                               new Vue({
+                directivess:{指令名:配置对象}  或       directives:{指令名:回调函数}
+            })                                      })
+        （2）全局指令：
+            Vue.directive(指令名,配置对象)    或     Vue.directive({指令名,回调函数})
+    2、配置对象中常用的三个回调
+        （1）bind：指令在于元素成功绑定时执行
+        （2）inserted：指令所在的元素被插入页面之后执行
+        （3）update：页面被重新解析时执行
+    3、备注：
+        1、指令定义时不加v-，但使用是要加
+        2、指令名如果是多个单词全部小写使用-连接，不用驼峰命名 -->

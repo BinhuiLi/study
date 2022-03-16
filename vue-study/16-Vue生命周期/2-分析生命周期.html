@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ch">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script type="text/javascript" src="../jsdir/vue.js"></script>
+</head>
+
+<body>
+    <div id="root">
+        <h2>你好 {{n}}</h2> 
+        <button @click="add">点我n++</button>
+        <button @click="destroyVm">点我销毁vm</button>
+    </div>
+    <script>
+        Vue.config.productionTip = false
+
+        const vm = new Vue({
+            el: '#root',
+            data: {
+               n:1
+            },
+            methods: {
+                add(){
+                    this.n++
+                },
+                destroyVm(){
+                    this.$destroy()
+                }
+            },
+            beforeCreate() {
+                console.log('beforeCreate')     //初始化生命周期、事件已完成   但数据代理、数据监测还未初始化
+            },
+            created() {
+                console.log('created',this.n)   //数据监测和数据代理已经初始化完成
+            },
+            beforeMount() {
+                console.log('beforeMount')   //此时vm已经将模板编译 生成虚拟DOM，但还未将虚拟DOM转换成真实DOM
+            },
+            mounted() {
+                console.log('mounted')   //此时已经将虚拟DOM转换成真实DOM并插入页面
+            },
+            beforeUpdate() {
+                console.log('beforeUpdate',this.n)   //此时为data中的数据发生了改变但还未将模板渲染
+            },
+            updated() {
+                console.log('updated',this.n)   //此时为因为data中的数据改变而引起的一系列操作已完成，此方法被调用
+            },
+            beforeDestroy() {
+                console.log('beforeDestroy')   //此时为调用了vm.$destroy()方法导致vm进行销毁之前，此方法被调用
+                debugger
+            },
+            destroyed() {
+                console.log('destroyed')   //此时为调用了vm.$destroy()方法  vm已销毁
+            },
+        })
+    </script>
+</body>
+
+</html>

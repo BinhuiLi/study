@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ch">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script type="text/javascript" src="../jsdir/vue.js"></script>
+</head>
+
+<body>
+    <div id="root">
+        <h1>你好 {{name}}</h1> 
+        <h1 v-text="name"></h1> 
+    </div>
+    <script>
+        Vue.config.productionTip = false
+        new Vue({
+            el: '#root',
+            data: {
+               name:'尚硅谷'
+            }
+        })
+    </script>
+</body>
+
+</html>
+<!-- 我们学习过的指令：
+    v-bind：单向绑定解析表达式
+    v-model：双向数据绑定
+    v-for：遍历数组/对象/字符串
+    v-on：绑定事件监听，可简写为@
+    v-if：条件渲染（动态控制节点是否存在）
+    v-else：条件渲染（动态控制节点是否存在）
+    v-show：条件渲染（动态控制节点是否显示）
+    v-text:
+        1、作用：向其所在节点中渲染文本内容
+        2、与插值语法的区别：v-text会替换点节点中的所有内容，{{xxx}}不会
+ -->
