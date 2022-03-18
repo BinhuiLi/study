@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+</head>
+<body>
+  <button onclick="addData()">点我保存数据</button><br/><br/>
+  <button onclick="readData()">点我查看数据</button><br/><br/>
+  <button onclick="removeData()">点我删除数据</button><br/><br/>
+  <button onclick="removeAllData()">点我清空数据</button><br/><br/>
+  <script type="text/javascript">
+    let p = {name:'张三',age:18}
+    function addData(){
+      window.localStorage.setItem('msg','hello')
+      window.localStorage.setItem('person',JSON.stringify(p))
+    }
+    function readData(){
+      console.log( window.localStorage.getItem('msg'));
+      console.log(JSON.parse(window.localStorage.getItem('person')))
+    }
+    function removeData(){
+      window.localStorage.removeItem('msg')
+      window.localStorage.removeItem('person')
+    }
+    function removeAllData(){
+      window.localStorage.clear()
+    }
+  </script>
+</body>
+</html>
