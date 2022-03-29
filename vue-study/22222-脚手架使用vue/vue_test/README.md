@@ -159,3 +159,99 @@ Vue 脚手架隐藏了所有 webpack 相关的配置，若想查看具体的 web
     3、使用v-model时要切记：v-model绑定的值不能是prop传过来的值，因为props是不可更改的
 
     4、props传过来的若是对象类型的值，修改对象的属性时Vue不会报错，但不推荐这样做
+
+**##组件的自定义事件**
+
+    1、一种组件的通信方式，适用于：子组件 ===》父组件
+
+    2、使用场景：A是父组件，B是子组件，B想要给A传递信息，那么就要在A中给B绑定自定义事件（事件 的回调在A中）
+
+    3、绑定自定义事件：
+
+    1、第一种方式：在父组件中：<Demo @atguigu="test" />或`<Demo v-on:atguigu="test"/>`
+
+    2、第二种方式：在父组件中：
+
+    `		<Demo ref="demo"/>...mounted:{this.$refs.demo.$on('atguigu',this.test)}`
+
+    3、若想让自定义事件只触发一次，可以使用$once绑定事件或在事件后添加once修饰符
+
+    4、触发自定义事件：this.$emit('atguigu',参数1...)
+
+    5、注意：通过`this.$refs.xxx.$on('atguigu',回调)绑定自定义事件时，回调要么配置在methods中，要么用箭头函数，否则this指向就会出现问题`
+
+**##全局事件总线**
+
+    1、一种组件间通信的方式，适用于任意组件间通信
+
+    2、安装全局事件总线：
+
+    new Vue{beforecreate(){Vue.prototype.$bus = this})}
+
+    3、使用事件总线：
+
+    1、接收数据：A组件想要接收数据，则A组件中给$bus绑定自定义事件，事件的回调留在A组件自身
+
+    2、提供数据：使用全局事件总线.$emit('xxx',val)触发xxx事件，并提供参数val
+
+    4、最好在beforedestroy钩子中，用$off去解绑当前组件所用到的事件
+
+**##消息订阅与发布**
+
+    1、一种组件间通信的方式，适用于任意组件间通信
+
+    2、使用步骤：
+
+    1、安装pubsub：npm i pubsub-js
+
+    2、引入：import pubsub from 'pubsub-js'
+
+    3、接收数据：A组件想要接收数据，则在A组件中订阅消息，订阅的回调留在A组件自身
+
+    this.pubsubid = pubsub.subscribe('studentName',this.reportStudentName) //订阅studentName信息thi
+
+    4、提供信息：pubsub.publish('studentName',this.name)
+
+    5、取消订阅：pubsub.unsubscribe(this.pubsubid) //取消订阅pubsubid的信息
+
+**##nextTick**
+
+    1、语法：this.$nextTick(回调函数)
+
+    2、作用：在下一次DOM更新结束后执行其指定的回调。
+
+    3、什么时候用：当改变数据后，要基于更新后的新DOM进行某些操作时，要在nextTick所指定的回调函数中执行
+
+**##配置代理**  见15代理配置/App.vue与vue.config.js
+
+**##插槽**
+
+    1、作用：让父组件可以向子组件指定位置插入html结构，也是一种组件之间的通信方式，适用于父组件 ===》子组件
+
+    2、分类：默认插槽、具名插槽、作用域插槽
+
+    3、使用方式：
+
+    1、默认插槽：父组件中在组件标签中写入要插入的html结构。子组件使用slot标签指定要插入的位置
+
+    2、具名插槽：父组件在写html结构时使用添加一个属性**slot=“xxx”**或者**v-slot=xxx**指定要插入的插槽，子组件在声明xlot标签时写入name=“xxx”与父组件一		 一对应
+
+    3、作用域插槽：子组件在声明slot标签时使用:xxx="yyy"声明一个xxx属性的值为yyy，父组件使用templat标签使用**slot-scope=“zzz”**获取该插槽的作用域，使用zzz.xxx获取到子组件在xxx上声明的yyy数据
+
+**##Vuex**
+
+    1、组件中读取vuex中的数据：this.$store.state.xxx
+
+    2、组件中执行vuex的方法：this.$store.dispatch('xxx',param1...)或者直接越过actions直接使用mutations中的方法
+
+this.&dollar;store.commit('xxx',param1...)
+
+##四个map方法的使用
+
+    mapState方法：用于帮助我们映射state中的数据
+
+    mapGetters方法：用于帮助我们映射getter中的数据
+
+    mapActions方法：用于帮助我们生成与action对话方法
+
+    mapMutations方法：用于帮助我们生成与Mutations对话方法

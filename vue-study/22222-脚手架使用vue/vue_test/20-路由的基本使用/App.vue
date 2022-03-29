@@ -12,8 +12,8 @@
           <!-- <a class="list-group-item active" href="./about.html">About</a>
           <a class="list-group-item" href="./home.html">Home</a> -->
           <!-- router写法 -->
-          <router-link replace class="list-group-item" active-class="active" to="/about">About</router-link>
-          <router-link replace class="list-group-item" active-class="active" to="/home">Home</router-link>
+          <router-link class="list-group-item" active-class="active" to="/about">About</router-link>
+          <router-link class="list-group-item" active-class="active" to="/home">Home</router-link>
         </div>
       </div>
       <div class="col-xs-6">

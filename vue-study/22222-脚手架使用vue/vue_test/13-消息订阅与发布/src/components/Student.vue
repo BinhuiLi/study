@@ -2,11 +2,13 @@
   <div>
       <h2> 学生姓名：{{name}}</h2>
       <h2> 学生性别：{{sex}}</h2>
-      <button @click="sendName">点我向App发送学生名字</button>
+      <button @click="sendNameToSchool">点我向school发送我的名字</button>
   </div>
 </template>
 
 <script>
+import pubsub from 'pubsub-js'
+
 export default {
   name:'student-info',
   data(){
@@ -16,8 +18,8 @@ export default {
     }
   },
   methods:{
-    sendName(){
-      this.$emit('sendMyName',this.name)
+    sendNameToSchool(){
+      pubsub.publish('studentName',this.name)
     }
   }
 }
